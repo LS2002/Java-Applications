@@ -1,0 +1,43 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+/***
+ * Checking if any anagram of a given string is palindrome or not
+ * 
+ * A palindrome can be broken into two halves. 
+ * In the first half is the reverse of second half. 
+ * In case of odd length of strings, we need to ignore the middle character. 
+ * 
+ * So for every character in first half, there is matching character in second half. 
+ * This indicates that all the characters in a string must occur even number of times,
+ * except for one which appears in the middle of the string.
+ * 
+ */
+public class TestPalindrome {
+	public static void main(String[] args) {
+		Scanner reader = new Scanner(System.in);
+		String input = reader.nextLine();
+		if (checkPalindrome(input)) {
+			System.out.println("Yes");
+		} else {
+			System.out.println("No");
+		}
+	}
+
+	public static boolean checkPalindrome(String chars) {
+		int[] count = new int[26];
+
+		for (int i = 0; i < chars.length(); i++) {
+			char c = chars.charAt(i);
+			count[c - 'a']++;
+		}
+		System.out.println(Arrays.toString(count));
+		int oddsOccur = 0;
+		for (int cnt : count) {
+			if (oddsOccur > 1)
+				return false;
+			oddsOccur += cnt % 2;
+		}
+		return true;
+	}
+}
